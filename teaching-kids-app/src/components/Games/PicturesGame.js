@@ -16,6 +16,7 @@ const GamesPage = () => {
   const [randomWordNames, setRandomWordNames] = useState([]);
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [currentGameIndex, setCurrentGameIndex] = useState(0);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     setRandomWordNames(getRandomWordNames());
@@ -35,12 +36,21 @@ const GamesPage = () => {
     if (selectedWord && selectedWord.name === wordName) {
       setMatchedWords((prevMatchedWords) => [...prevMatchedWords, wordName]);
       setSelectedWord(null);
-      setFeedbackMessage("Good job!");
+        setFeedbackMessage("Good job!");
+        setScore((prevScore) => prevScore + 1);
     } else {
       setFeedbackMessage("Try again!");
     }
   };
 
+ const handleReset = () => {
+  setSelectedWord(null);
+  setMatchedWords([]);
+  setRandomWordNames(getRandomWordNames());
+  setFeedbackMessage("");
+  setScore(0);
+ };
+    
   const handleNextGame = () => {
     setCurrentGameIndex((prevIndex) => prevIndex + 1);
     setSelectedWord(null);
@@ -96,10 +106,10 @@ const GamesPage = () => {
           );
         })}
       </div>
-      {feedbackMessage && (
-        <div style={{ textAlign: "center", marginTop: "20px" }}>{feedbackMessage}</div>
-      )}
-     
+ {feedbackMessage && <div style={{ textAlign: "center", marginTop: "20px" }}>{feedbackMessage}</div>}
+      <button onClick={handleReset}>Reset</button>
+      <p>Score: {score}</p>
+      {currentGameIndex >= words.length && <div>All games completed!</div>}
     </div>
   );
 };

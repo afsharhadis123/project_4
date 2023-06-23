@@ -17,6 +17,8 @@ const GamesPage = () => {
   const [randomColorNames, setRandomColorNames] = useState([]);
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [currentGameIndex, setCurrentGameIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [gameCompleted, setGameCompleted] = useState(false); // New state variable
 
   useEffect(() => {
     setRandomColorNames(getRandomColorNames());
@@ -38,71 +40,84 @@ const GamesPage = () => {
       setMatchedColors((prevMatchedColors) => [...prevMatchedColors, colorName]);
       setSelectedColor(null);
       setFeedbackMessage("Good job!");
+      setScore((prevScore) => prevScore + 1);
     } else {
       setFeedbackMessage("Try again!");
     }
+    
+    if (matchedColors.length === games.colors.length - 1) {
+      setGameCompleted(true);
+      setFeedbackMessage("Congratulations! You completed the game.");
+    }
+  };
+
+  const handleReset = () => {
+    setSelectedColor(null);
+    setMatchedColors([]);
+    setRandomColorNames(getRandomColorNames());
+    setFeedbackMessage("");
+    setScore(0);
+    setGameCompleted(false);
   };
 
   const handleNextGame = () => {
     setCurrentGameIndex((prevIndex) => prevIndex + 1);
     setSelectedColor(null);
     setMatchedColors([]);
+    setRandomColorNames(getRandomColorNames());
     setFeedbackMessage("");
+    setGameCompleted(false);
   };
-
-  useEffect(() => {
-    const currentGame = games.colors;
-    if (currentGame) {
-      if (matchedColors.length === currentGame.length) {
-        // Game over logic or show success message
-      }
-    }
-  }, [matchedColors]);
 
   return (
     <div>
-      <div>
-        <h2>Color Matching Game</h2>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          {games.colors.map((color, index) => (
-            <div
+      <h2>Color Matching Game</h2>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {games.colors.map((color, index) => (
+          <div
+            key={index}
+            onClick={() => handleColorClick(color)}
+            style={{
+              width: "100px",
+              height: "100px",
+              backgroundColor: color.hexCode,
+              margin: "10px",
+              cursor: "pointer",
+              border: `2px solid ${selectedColor === color ? "black" : "transparent"}`,
+            }}
+          />
+        ))}
+      </div>
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        {randomColorNames.map((colorName, index) => {
+          const color = games.colors.find((color) => color.name === colorName);
+          return (
+            <button
               key={index}
-              onClick={() => handleColorClick(color)}
+              onClick={() => handleColorNameClick(colorName)}
               style={{
                 width: "100px",
-                height: "100px",
-                backgroundColor: color.hexCode,
+                height: "50px",
                 margin: "10px",
                 cursor: "pointer",
-                border: `2px solid ${selectedColor === color ? "black" : "transparent"}`,
+                border: `2px solid ${matchedColors.includes(colorName) ? "green" : "transparent"}`,
+                color: color?.hexCode,
               }}
-            />
-          ))}
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          {randomColorNames.map((colorName, index) => {
-            const color = games.colors.find((color) => color.name === colorName);
-            return (
-              <button
-                key={index}
-                onClick={() => handleColorNameClick(colorName)}
-                style={{
-                  width: "100px",
-                  height: "50px",
-                  margin: "10px",
-                  cursor: "pointer",
-                  border: `2px solid ${matchedColors.includes(colorName) ? "green" : "transparent"}`,
-                  color: color?.hexCode,
-                }}
-              >
-                {colorName}
-              </button>
-            );
-          })}
-        </div>
+            >
+              {colorName}
+            </button>
+          );
+        })}
       </div>
       {feedbackMessage && <div style={{ textAlign: "center", marginTop: "20px" }}>{feedbackMessage}</div>}
-     
+      <button onClick={handleReset}>Reset</button>
+      <p>Score: {score}</p>
+      {/* {gameCompleted && (
+        // <div>
+        //   <p>Congratulations! You completed the game.</p>
+        //   {currentGameIndex < games.colors.length - 1 && <button onClick={handleNextGame}>Next Game</button>}
+        // </div>
+      )} */}
       {currentGameIndex >= games.colors.length && <div>All games completed!</div>}
     </div>
   );
