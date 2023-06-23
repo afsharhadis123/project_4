@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Component } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
@@ -13,123 +13,148 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 
 const pages = [
-	{ name: "About", path: "/About" },
-	{ name: "Games", path: "/Games" },
-	{ name: "Spline", path: "/Spline" },
-	
+  { name: "About", path: "/About" },
+  { name: "Games", path: "/Games" },
+  { name: "Spline", path: "/Spline" },
 ];
 
 const theme = createTheme({
-	breakpoints: {
-		values: {
-			xs: 0,
-			sm: 450,
-			md: 800,
-			lg: 1280,
-			xl: 1920,
-		},
-	},
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 450,
+      md: 800,
+      lg: 1280,
+      xl: 1920,
+    },
+  },
 });
 
-const NavBar = () => {
-	const [anchorElNav, setAnchorElNav] = React.useState(null);
+class NavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      anchorElNav: null,
+    };
+  }
 
-	const handleOpenNavMenu = (event) => {
-		setAnchorElNav(event.currentTarget);
-	};
+  handleOpenNavMenu = (event) => {
+    this.setState({ anchorElNav: event.currentTarget });
+  };
 
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
+  handleCloseNavMenu = () => {
+    this.setState({ anchorElNav: null });
+  };
 
-	return (
-		<ThemeProvider theme={theme}>
-			<AppBar position='static'>
-				<Container maxWidth='xl'>
-					<Toolbar disableGutters>
-						<Typography
-							variant='h6'
-							noWrap
-							component='a'
-							href='/'
-							sx={{
-								flexGrow: 1,
-								display: { xs: "flex", lg: "flex" },
-								fontFamily: "monospace",
-								fontWeight: 700,
-								letterSpacing: ".3rem",
-								color: "yellow",
-								textDecoration: "none",
-							}}
-						>
-							Monsters's Wonderland
-						</Typography>
+  render() {
+    const { anchorElNav } = this.state;
 
-						<Box
-							sx={{
-								flexGrow: 1,
-								display: { xs: "none", sm: "flex" },
-								justifyContent: "flex-end",
-							}}
-						>
-							{pages.map((page) => (
-								<Button
-									key={page.name}
-									onClick={handleCloseNavMenu}
-									sx={{ my: 2, color: "white", display: "block" }}
-									component={Link}
-									to={page.path}
-								>
-									{page.name}
-								</Button>
-							))}
-						</Box>
+    return (
+      <ThemeProvider theme={theme}>
+        <AppBar position="static" style={{ backgroundColor: "#fbd14b" }}>
+          <Container maxWidth="xl">
+            <Toolbar disableGutters>
+              <Typography
+                variant="h6"
+                noWrap
+                component={Link}
+                to="/"
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: "flex", lg: "flex" },
+                  fontFamily: "Comic Sans MS",
+                  fontWeight: 700,
+                  letterSpacing: ".1rem",
+                  color: "#ff00cc",
+                  textDecoration: "none",
+                }}
+              >
+                Monster's Wonderland
+              </Typography>
 
-						<Box sx={{ flexGrow: 0, display: { xs: "flex", sm: "none" } }}>
-							<IconButton
-								size='large'
-								aria-label='account of current user'
-								aria-controls='menu-appbar'
-								aria-haspopup='true'
-								onClick={handleOpenNavMenu}
-								color='inherit'
-							>
-								<MenuIcon />
-							</IconButton>
-							<Menu
-								id='menu-appbar'
-								anchorEl={anchorElNav}
-								anchorOrigin={{
-									vertical: "bottom",
-									horizontal: "right",
-								}}
-								keepMounted
-								transformOrigin={{
-									vertical: "top",
-									horizontal: "right",
-								}}
-								open={Boolean(anchorElNav)}
-								onClose={handleCloseNavMenu}
-								sx={{
-									display: { xs: "block", sm: "none" },
-								}}
-							>
-								{pages.map((page) => (
-									<MenuItem
-										key={page.name}
-										onClick={handleCloseNavMenu}
-										component={Link}
-										to={page.path}
-									>
-										<Typography textAlign='center'>{page.name}</Typography>
-									</MenuItem>
-								))}
-							</Menu>
-						</Box>
-					</Toolbar>
-				</Container>
-			</AppBar>
-		</ThemeProvider>
-	);
-};
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: "none", sm: "flex" },
+                  justifyContent: "flex-end",
+                }}
+              >
+                {pages.map((page) => (
+                  <Button
+                    key={page.name}
+                    onClick={this.handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      fontFamily: "Comic Sans MS",
+                      fontSize: "1rem",
+                      textTransform: "none",
+                      borderRadius: "20px",
+                      backgroundColor: "#ff4081",
+                      padding: "5px 20px",
+                      marginRight: "10px",
+                    }}
+                    component={Link}
+                    to={page.path}
+                  >
+                    {page.name}
+                  </Button>
+                ))}
+              </Box>
+
+              <Box sx={{ flexGrow: 0, display: { xs: "flex", sm: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="menu"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={this.handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={this.handleCloseNavMenu}
+                  sx={{
+                    display: { xs: "block", sm: "none" },
+                  }}
+                >
+                  {pages.map((page) => (
+                    <MenuItem
+                      key={page.name}
+                      onClick={this.handleCloseNavMenu}
+                      component={Link}
+                      to={page.path}
+                      sx={{
+                        fontFamily: "Comic Sans MS",
+                        fontSize: "1rem",
+                        textTransform: "none",
+                      }}
+                    >
+                      {page.name}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            </Toolbar>
+          </Container>
+        </AppBar>
+      </ThemeProvider>
+    );
+  }
+}
+
 export default NavBar;
