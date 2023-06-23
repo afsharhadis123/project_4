@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import BackgroundSound from '../Audio/Monkeys.mp3';
 
 const NumberLearningGame = () => {
   const [currentNumber, setCurrentNumber] = useState(1);
@@ -8,6 +9,7 @@ const NumberLearningGame = () => {
   const [score, setScore] = useState(0);
   const [timer, setTimer] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
+    const [backgroundMusic, setBackgroundMusic] = useState(null);
 
   const startTimer = () => {
     const id = setInterval(() => {
@@ -26,7 +28,31 @@ const NumberLearningGame = () => {
     clearInterval(intervalId);
     startTimer();
   };
+useEffect(() => {
+    const audio = new Audio(BackgroundSound);
+    audio.loop = true;
+    setBackgroundMusic(audio);
+  }, []);
 
+  const playBackgroundMusic = () => {
+    if (backgroundMusic) {
+      backgroundMusic.play();
+    }
+  };
+
+  const pauseBackgroundMusic = () => {
+    if (backgroundMusic) {
+      backgroundMusic.pause();
+    }
+  };
+
+  const toggleBackgroundMusic = () => {
+    if (backgroundMusic && backgroundMusic.paused) {
+      playBackgroundMusic();
+    } else {
+      pauseBackgroundMusic();
+    }
+  };
   const handleNextNumber = () => {
     if (currentNumber === 10) {
       setGameCompleted(true);
@@ -70,7 +96,9 @@ const NumberLearningGame = () => {
   return (
     <div>
       <h1>Number Learning Game</h1>
-
+       <button onClick={toggleBackgroundMusic}>
+        {backgroundMusic && !backgroundMusic.paused ? "Music Off" : "Music On"}
+      </button>
       <img
         src={numberImages[currentNumber]}
         alt={`Number ${currentNumber}`}

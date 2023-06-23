@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import BackgroundSound from '../Audio/freemusic.mp3';
 
 const words = [
   { name: "🍎", image: "https://img.taste.com.au/g60Nr8OS/taste/2016/11/ten-secrets-of-fuji-apples-64754-1.jpg" },
@@ -7,7 +8,7 @@ const words = [
   { name: "✈️", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRI8HbAQ4hcKj5Zl66BMebInSU2OJKPQsyoQ&usqp=CAU" },
   { name: "🚗", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNcQiLvi5vHtvz-1W7lCw5EPL_1MZ81Y1ydQ&usqp=CAU" },
   { name: "🌸", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHp0lXjIfMX9OzFqEjyfPEmAIdvsYIZbD8eQ&usqp=CAU" },
-  // Add more words and images as needed
+  // Add more words, images, and audio as needed
 ];
 
 const GamesPage = () => {
@@ -17,15 +18,45 @@ const GamesPage = () => {
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [currentGameIndex, setCurrentGameIndex] = useState(0);
   const [score, setScore] = useState(0);
+  const [backgroundMusic, setBackgroundMusic] = useState(null);
 
-  useEffect(() => {
+
+    useEffect(() => {
     setRandomWordNames(getRandomWordNames());
   }, [currentGameIndex]);
+
+  useEffect(() => {
+    const audio = new Audio(BackgroundSound);
+    audio.loop = true;
+    setBackgroundMusic(audio);
+  }, []);
+
+  const playBackgroundMusic = () => {
+    if (backgroundMusic) {
+      backgroundMusic.play();
+    }
+  };
+
+  const pauseBackgroundMusic = () => {
+    if (backgroundMusic) {
+      backgroundMusic.pause();
+    }
+  };
+
+  const toggleBackgroundMusic = () => {
+    if (backgroundMusic && backgroundMusic.paused) {
+      playBackgroundMusic();
+    } else {
+      pauseBackgroundMusic();
+    }
+  };
 
   const getRandomWordNames = () => {
     const shuffledWordNames = words.map((word) => word.name).sort(() => 0.1 - Math.random());
     return shuffledWordNames;
   };
+
+
 
   const handleWordClick = (word) => {
     setSelectedWord(word);
@@ -36,21 +67,21 @@ const GamesPage = () => {
     if (selectedWord && selectedWord.name === wordName) {
       setMatchedWords((prevMatchedWords) => [...prevMatchedWords, wordName]);
       setSelectedWord(null);
-        setFeedbackMessage("Good job!");
-        setScore((prevScore) => prevScore + 1);
+      setFeedbackMessage("Good job!");
+      setScore((prevScore) => prevScore + 1);
     } else {
       setFeedbackMessage("Try again!");
     }
   };
 
- const handleReset = () => {
-  setSelectedWord(null);
-  setMatchedWords([]);
-  setRandomWordNames(getRandomWordNames());
-  setFeedbackMessage("");
-  setScore(0);
- };
-    
+  const handleReset = () => {
+    setSelectedWord(null);
+    setMatchedWords([]);
+    setRandomWordNames(setRandomWordNames());
+    setFeedbackMessage("");
+    setScore(0);
+  };
+
   const handleNextGame = () => {
     setCurrentGameIndex((prevIndex) => prevIndex + 1);
     setSelectedWord(null);
@@ -64,9 +95,13 @@ const GamesPage = () => {
     }
   }, [matchedWords]);
 
-  return (
-    <div>
+
+   return (
+   <div>
       <h1>Picture Matching Game</h1>
+      <button onClick={toggleBackgroundMusic}>
+        {backgroundMusic && !backgroundMusic.paused ? "Music Off" : "Music On"}
+      </button>
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         {words.map((word, index) => (
           <div
@@ -106,7 +141,7 @@ const GamesPage = () => {
           );
         })}
       </div>
- {feedbackMessage && <div style={{ textAlign: "center", marginTop: "20px" }}>{feedbackMessage}</div>}
+      {feedbackMessage && <div style={{ textAlign: "center", marginTop: "20px" }}>{feedbackMessage}</div>}
       <button onClick={handleReset}>Reset</button>
       <p>Score: {score}</p>
       {currentGameIndex >= words.length && <div>All games completed!</div>}

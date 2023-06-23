@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
+import RedSound from '../Audio/red.mp3'
+import BlueSound from '../Audio/blue.mp3'
+import YellowSound from '../Audio/yellow.mp3'
+import GreenSound from '../Audio/green.mp3'
+import PurpleSound from '../Audio/purple.mp3'
+import OrangeSound from '../Audio/orange.mp3'
 
 const games = {
   colors: [
-    { name: "❤️ Red", hexCode: "#FF0000" },
-    { name: "💙 Blue", hexCode: "#0000FF" },
-    { name: "💚 Green", hexCode: "#00FF00" },
-    { name: "💛 Yellow", hexCode: "#FFFF00" },
-    { name: "💜 Purple", hexCode: "#A020F0" },
-    { name: "🧡 Orange ", hexCode: "#FFA500" },
+    { name: "❤️ Red", hexCode: "#FF0000",audio:{RedSound} },
+    { name: "💙 Blue", hexCode: "#0000FF" ,audio:{BlueSound} },
+    { name: "💚 Green", hexCode: "#00FF00",audio:{GreenSound}  },
+    { name: "💛 Yellow", hexCode: "#FFFF00",audio:{YellowSound}  },
+    { name: "💜 Purple", hexCode: "#A020F0",audio:{PurpleSound}  },
+    { name: "🧡 Orange ", hexCode: "#FFA500",audio:{OrangeSound}  },
   ],
 };
 
@@ -32,9 +38,16 @@ const GamesPage = () => {
 
   const handleColorClick = (color) => {
     setSelectedColor(color);
-    setFeedbackMessage("");
-  };
+      setFeedbackMessage("");
 
+      playAudio(color.audio);
+  };
+   const playAudio = (audioUrl) => {
+
+    const audio = new Audio(Object.values(audioUrl)[0]);
+    audio.play();
+   };
+    
   const handleColorNameClick = (colorName) => {
     if (selectedColor && selectedColor.name === colorName) {
       setMatchedColors((prevMatchedColors) => [...prevMatchedColors, colorName]);
@@ -112,12 +125,7 @@ const GamesPage = () => {
       {feedbackMessage && <div style={{ textAlign: "center", marginTop: "20px" }}>{feedbackMessage}</div>}
       <button onClick={handleReset}>Reset</button>
       <p>Score: {score}</p>
-      {/* {gameCompleted && (
-        // <div>
-        //   <p>Congratulations! You completed the game.</p>
-        //   {currentGameIndex < games.colors.length - 1 && <button onClick={handleNextGame}>Next Game</button>}
-        // </div>
-      )} */}
+    
       {currentGameIndex >= games.colors.length && <div>All games completed!</div>}
     </div>
   );
