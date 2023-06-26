@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import ColorsGame from "../Games/ColorsGame";
 import NumbersGame from "../Games/NumbersGame";
 import PicturesGame from "../Games/PicturesGame";
+import RandomColorGame from "../Games/RandomColorGame";
 import Layout from "../Layout/DefaultLayout";
 
 const GamePage = () => {
   const [currentGameIndex, setCurrentGameIndex] = useState(0);
-  const [gameComponents] = useState([ColorsGame, NumbersGame, PicturesGame]);
+  const [gameComponents] = useState([ColorsGame, NumbersGame, PicturesGame, RandomColorGame]);
   // console.log(ColorsGame)
   
   const handleNextGame = () => {

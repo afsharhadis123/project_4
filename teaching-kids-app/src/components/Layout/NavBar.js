@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 const pages = [
   { name: "About", path: "/About" },
   { name: "Games", path: "/Games" },
-  { name: "Spline", path: "/Spline" },
+  { name: "Video", path: "/Video" },
 ];
 
 const theme = createTheme({
