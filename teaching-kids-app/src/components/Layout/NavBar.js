@@ -1,6 +1,6 @@
 import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -31,11 +31,8 @@ const theme = createTheme({
 });
 
 const NavBar = () => {
-  const navigate = useNavigate();
 
-  const handleGamesClick = () => {
-    navigate("/Games");
-  };
+ 
 
   return (
     <ThemeProvider theme={theme}>

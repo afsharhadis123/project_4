@@ -18,7 +18,7 @@ const games = {
   ],
 };
 
-const GamesPage = () => {
+const ColorsGame = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [matchedColors, setMatchedColors] = useState([]);
   const [randomColorNames, setRandomColorNames] = useState([]);
@@ -123,4 +123,4 @@ const GamesPage = () => {
   );
 };
 
-export default GamesPage;
+export default ColorsGame;

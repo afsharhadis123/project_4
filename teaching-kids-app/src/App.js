@@ -5,7 +5,7 @@ import HomePage from "./components/Pages/HomePage";
 import GamesPage from "./components/Pages/GamesPage";
 import AboutPage from "./components/Pages/About";
 import VideoPage from "./components/Pages/Video";
-import Footer from "./components/Layout/Footer"; // Assuming you have a Footer component
+
 
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/About" element={<AboutPage />} />
         <Route path="/video" element={<VideoPage />} />
       </Routes>
-      <Footer />
+     
     </>
   );
 }

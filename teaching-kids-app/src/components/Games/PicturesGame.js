@@ -12,7 +12,7 @@ const words = [
   // Add more words, images, and audio as needed
 ];
 
-const GamesPage = () => {
+const PicturesGame = () => {
   const [selectedWord, setSelectedWord] = useState(null);
   const [matchedWords, setMatchedWords] = useState([]);
   const [randomWordNames, setRandomWordNames] = useState([]);
@@ -141,4 +141,4 @@ const GamesPage = () => {
   );
 };
 
-export default GamesPage;
+export default PicturesGame;
