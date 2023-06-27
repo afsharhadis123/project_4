@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BackgroundSound from '../Audio/Monkeys.mp3';
+import '../styles/NumberGame.css';
 
 const NumberLearningGame = () => {
   const [currentNumber, setCurrentNumber] = useState(1);
@@ -94,39 +95,43 @@ useEffect(() => {
   };
 
   return (
-    <div>
-      <h1>Number Learning Game</h1>
-       <button onClick={toggleBackgroundMusic}>
-        {backgroundMusic && !backgroundMusic.paused ? "Music Off" : "Music On"}
-      </button>
-      <img
-        src={numberImages[currentNumber]}
-        alt={`Number ${currentNumber}`}
-        style={{ width: "200px", height: "200px" }}
-      />
-      <p>How many fruits do you see?</p>
-      <input
-        type="number"
-        value={userAnswer}
-        onChange={(e) => setUserAnswer(e.target.value)}
-      />
-      <button onClick={checkAnswer}>Check Answer</button>
-      {message && <p>{message}</p>}
-      {gameCompleted && <p>Congratulations! You completed the game.</p>}
-      <button onClick={handleNextNumber}>Next Number</button>
-      <button onClick={handleReset}>Reset</button>
-
-      <p>Score: {score}</p>
-      <p>Timer: {timer} seconds</p>
-
-      {gameCompleted && (
-        <div>
-          <p>Congratulations! You completed the game.</p>
-          <button onClick={handleReset}>Play Again</button>
+        <div className="game-container1">
+      <img className="background-image1" src="https://vettastage.genesis-perpetual.net.au/exfiles/dino.png" alt="Game Background" />
+      <div className="container1">
+        <h1>Number Learning Game</h1>
+        <button onClick={toggleBackgroundMusic}>
+          {backgroundMusic && !backgroundMusic.paused ? "Music Off" : "Music On"}
+        </button>
+        <div className="image-container1">
+          <img
+            src={numberImages[currentNumber]}
+            alt={`Number ${currentNumber}`}
+            style={{ width: "200px", height: "200px" }}
+          />
         </div>
-      )}
+        <p>How many fruits do you see?</p>
+        <input
+          type="number"
+          value={userAnswer}
+          onChange={(e) => setUserAnswer(e.target.value)}
+        />
+        <button onClick={checkAnswer}>Check Answer</button>
+        {message && <p>{message}</p>}
+        {gameCompleted && <p>Congratulations! You completed the game.</p>}
+        <button onClick={handleNextNumber}>Next Number</button>
+        <button onClick={handleReset}>Reset</button>
+        <p className="score">Score: {score}</p>
+        <p>Timer: {timer} seconds</p>
+        {gameCompleted && (
+          <div className="game-completed1">
+            <p>Congratulations! You completed the game.</p>
+            <button onClick={handleReset}>Play Again</button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
+
 
 export default NumberLearningGame;

@@ -1,0 +1,97 @@
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgb(240, 240, 215);
+}
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.game-container1 {
+    position: relative;
+    min-height: 100vh;
+}
+
+.background-image1 {
+    position:relative;
+    width: auto;
+    height: auto;
+    opacity: 1;
+    top: 600px;
+    left: 300px;
+    z-index: 5;
+    /* Adjust the z-index value as needed */
+}
+
+.container1 {
+    text-align: center;
+    margin: 0;
+}
+
+.image-container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container1 div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    cursor: pointer;
+    border: 2px solid transparent;
+    margin: 0;
+}
+
+.image-container1 div.selected {
+    border: 2px solid black;
+}
+p {
+    font-size: 18px;
+    margin-bottom: 1px;
+    text-align: center;
+    
+}
+
+
+.feedback-message {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #d6f4d8;
+    color: rgb(23, 22, 22);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    /* Add transition for button hover effect */
+}
+
+button:hover {
+    background-color: #e8e5ed;
+    /* Darker shade for hover effect */
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+/* Styles for the score */
+.score {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Styles for the game completed message */
+.game-completed1 {
+    margin-top: 20px;
+    text-align: center;
+}

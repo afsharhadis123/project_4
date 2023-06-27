@@ -1,13 +1,18 @@
 import DefaultLayout from "../Layout/DefaultLayout";
+import "../styles/HomePage.css";
+import Image from "../Images/cute-dinosaur.png";
 
 const HomePage = () => {
-	return (
-		<DefaultLayout>
-			<h1>Home Page</h1>
-			<p>Welcome to Dinos's Wonderland, a magical world filled with colorful creatures and exciting adventures! Join us on ...</p>
-		</DefaultLayout>
-	);
+  return (
+    <DefaultLayout>
+      <div className="home-page-container">
+        <div className="image-container">
+          <img src={Image} alt="Cute Dinosaur" />
+        </div>
+        <p className="introduce">Welcome to Dinos's Wonderland, a magical world filled with colorful creatures and exciting adventures! Join us on ...</p>
+      </div>
+    </DefaultLayout>
+  );
 };
 
 export default HomePage;
-

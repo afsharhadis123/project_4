@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BackgroundSound from '../Audio/freemusic.mp3';
+import '../styles/PictureGame.css';
 
 const words = [
   { name: "🍎", image: "https://img.taste.com.au/g60Nr8OS/taste/2016/11/ten-secrets-of-fuji-apples-64754-1.jpg" },
@@ -16,14 +17,12 @@ const GamesPage = () => {
   const [matchedWords, setMatchedWords] = useState([]);
   const [randomWordNames, setRandomWordNames] = useState([]);
   const [feedbackMessage, setFeedbackMessage] = useState("");
-  const [currentGameIndex, setCurrentGameIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [backgroundMusic, setBackgroundMusic] = useState(null);
 
-
-    useEffect(() => {
+  useEffect(() => {
     setRandomWordNames(getRandomWordNames());
-  }, [currentGameIndex]);
+  }, []);
 
   useEffect(() => {
     const audio = new Audio(BackgroundSound);
@@ -56,8 +55,6 @@ const GamesPage = () => {
     return shuffledWordNames;
   };
 
-
-
   const handleWordClick = (word) => {
     setSelectedWord(word);
     setFeedbackMessage("");
@@ -77,16 +74,9 @@ const GamesPage = () => {
   const handleReset = () => {
     setSelectedWord(null);
     setMatchedWords([]);
-    setRandomWordNames(setRandomWordNames());
+    setRandomWordNames(getRandomWordNames());
     setFeedbackMessage("");
     setScore(0);
-  };
-
-  const handleNextGame = () => {
-    setCurrentGameIndex((prevIndex) => prevIndex + 1);
-    setSelectedWord(null);
-    setMatchedWords([]);
-    setFeedbackMessage("");
   };
 
   useEffect(() => {
@@ -95,56 +85,58 @@ const GamesPage = () => {
     }
   }, [matchedWords]);
 
-
-   return (
-   <div>
-      <h1>Picture Matching Game</h1>
-      <button onClick={toggleBackgroundMusic}>
-        {backgroundMusic && !backgroundMusic.paused ? "Music Off" : "Music On"}
-      </button>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        {words.map((word, index) => (
-          <div
-            key={index}
-            onClick={() => handleWordClick(word)}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              margin: "10px",
-              cursor: "pointer",
-              border: `2px solid ${selectedWord === word ? "black" : "transparent"}`,
-            }}
-          >
-            <img src={word.image} alt={word.name} style={{ width: "100px", height: "100px" }} />
-            <span>{word.name}</span>
-          </div>
-        ))}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-        {randomWordNames.map((wordName, index) => {
-          const word = words.find((word) => word.name === wordName);
-          return (
-            <button
+  return (
+    <div className="game-container">
+      <div className="game-content">
+        <h1>Picture Matching Game</h1>
+        <button onClick={toggleBackgroundMusic}>
+          {backgroundMusic && !backgroundMusic.paused ? "Music Off" : "Music On"}
+        </button>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          {words.map((word, index) => (
+            <div
               key={index}
-              onClick={() => handleMatchClick(wordName)}
+              onClick={() => handleWordClick(word)}
               style={{
-                width: "100px",
-                height: "50px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 margin: "10px",
                 cursor: "pointer",
-                border: `2px solid ${matchedWords.includes(wordName) ? "green" : "transparent"}`,
+                border: `2px solid ${selectedWord === word ? "black" : "transparent"}`,
               }}
             >
-              {wordName}
-            </button>
-          );
-        })}
+              <img src={word.image} alt={word.name} style={{ width: "100px", height: "100px" }} />
+              <span>{word.name}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          {randomWordNames.map((wordName, index) => {
+           
+            return (
+              <button
+                key={index}
+                onClick={() => handleMatchClick(wordName)}
+                style={{
+                  width: "100px",
+                  height: "50px",
+                  margin: "10px",
+                  cursor: "pointer",
+                  border: `2px solid ${matchedWords.includes(wordName) ? "green" : "transparent"}`,
+                }}
+              >
+                {wordName}
+              </button>
+            );
+          })}
+        </div>
+        {feedbackMessage && <div style={{ textAlign: "center", marginTop: "20px" }}>{feedbackMessage}</div>}
+        <button className="reset" onClick={handleReset}>Reset</button>
+        <p>Score: {score}</p>
+        {matchedWords.length === words.length && <div>All games completed!</div>}
       </div>
-      {feedbackMessage && <div style={{ textAlign: "center", marginTop: "20px" }}>{feedbackMessage}</div>}
-      <button onClick={handleReset}>Reset</button>
-      <p>Score: {score}</p>
-      {currentGameIndex >= words.length && <div>All games completed!</div>}
+      <img className="background-image" src="https://dbdzm869oupei.cloudfront.net/img/sticker/preview/35594.png" alt="Game Background" />
     </div>
   );
 };

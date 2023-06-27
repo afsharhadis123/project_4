@@ -3,7 +3,8 @@ import ColorsGame from "../Games/ColorsGame";
 import NumbersGame from "../Games/NumbersGame";
 import PicturesGame from "../Games/PicturesGame";
 import Layout from "../Layout/DefaultLayout";
-import { useLocation, useNavigate } from "react-router-dom";
+
+
 
 const GamePage = () => {
   const [currentGameIndex, setCurrentGameIndex] = useState(0);
@@ -14,8 +15,7 @@ const GamePage = () => {
       ]);
   const [remainingTime, setRemainingTime] = useState(30);
 
-  const location = useLocation();
-  const navigate = useNavigate();
+
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -47,7 +47,7 @@ const GamePage = () => {
       {currentGameIndex < gameComponents.length ? (
         <>
           <CurrentGame remainingTime={remainingTime} />
-          <button
+          <button className="next"
             onClick={handleNextGame}
             style={{
               display: "block",
@@ -62,7 +62,7 @@ const GamePage = () => {
       ) : (
         <div>All games completed!</div>
       )}
-      <button onClick={resetToFirstGame}>Back To First</button>
+      <button className="back" onClick={resetToFirstGame}>Back To First</button>
     </Layout>
   );
 };

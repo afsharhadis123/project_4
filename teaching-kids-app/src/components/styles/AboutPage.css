@@ -1,0 +1,31 @@
+.about-page-container {
+    position: relative;
+    width: 230vh;
+    height: 200vh;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    color: black;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: center;
+    font-weight: bold;
+    
+}
+.about-page-container .paragraph {
+  font-weight: bold;
+  width: 50px; /* Set the desired width */
+  height: 60px; /* Set the desired height */
+}
+.background-image-about {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/013/330/704/non_2x/the-children-get-into-the-brontosaurus-and-playing-on-his-body-some-of-the-holding-his-tail-vector.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.7;
+}

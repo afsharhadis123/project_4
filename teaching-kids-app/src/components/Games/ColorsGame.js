@@ -5,6 +5,7 @@ import YellowSound from '../Audio/yellow.mp3';
 import GreenSound from '../Audio/green.mp3';
 import PurpleSound from '../Audio/purple.mp3';
 import OrangeSound from '../Audio/orange.mp3';
+import "../styles/ColorGame.css";
 
 const games = {
   colors: [
@@ -22,19 +23,18 @@ const GamesPage = () => {
   const [matchedColors, setMatchedColors] = useState([]);
   const [randomColorNames, setRandomColorNames] = useState([]);
   const [feedbackMessage, setFeedbackMessage] = useState("");
-  const [currentGameIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [gameCompleted, setGameCompleted] = useState(false);
 
   useEffect(() => {
     setRandomColorNames(getRandomColorNames());
-  }, [currentGameIndex]);
+  }, []);
 
   const getRandomColorNames = () => {
     const colors = games.colors || [];
     const shuffledColorNames = colors
       .map((color) => color.name)
-      .sort(() => -1 - Math.random());
+      .sort(() => 0.1 - Math.random());
     return shuffledColorNames;
   };
 
@@ -75,55 +75,47 @@ const GamesPage = () => {
   };
 
   return (
-    <div>
+    <div className="game-container2">
       <h2>Color Matching Game</h2>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div className="container2">
         {games.colors.map((color, index) => (
           <div
             key={index}
             onClick={() => handleColorClick(color)}
-            style={{
-              width: "100px",
-              height: "100px",
-              backgroundColor: color.hexCode,
-              margin: "10px",
-              cursor: "pointer",
-              border: `2px solid ${selectedColor === color ? "black" : "transparent"}`,
-            }}
+            className={`image-container2 ${selectedColor === color ? "selected" : ""}`}
+            style={{ backgroundColor: color.hexCode }}
           />
         ))}
       </div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div className="background-image2" />
+
+      <div className="container2">
         {randomColorNames.map((colorName, index) => (
-          <div
+          <button
             key={index}
             onClick={() => handleColorNameClick(colorName)}
             style={{
               width: "100px",
-              height: "30px",
-              backgroundColor: "white",
+              height: "50px",
               margin: "10px",
               cursor: "pointer",
-              border: `2px solid ${selectedColor && selectedColor.name === colorName ? "withe" : "transparent"}`,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+              border: `2px solid ${matchedColors.includes(colorName) ? "green" : "transparent"}`,
             }}
           >
             {colorName}
-          </div>
+          </button>
         ))}
       </div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "20px" }}>
-        <div style={{ marginRight: "20px" }}>
+      <div className="score-container2">
+        <div className="score">
           <strong>Score:</strong> {score}
         </div>
-        <div>
+        <div className="feedback-message2">
           <strong>Feedback:</strong> {feedbackMessage}
         </div>
       </div>
       {gameCompleted && (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div className="game-completed2">
           <button onClick={handleReset}>Reset</button>
         </div>
       )}
