@@ -19,8 +19,8 @@ h1 {
     width: auto;
     height: auto;
     opacity: 1;
-    top: 600px;
-    left: 300px;
+    top: 10px;
+    left: 40px;
     z-index: 5;
     /* Adjust the z-index value as needed */
 }
