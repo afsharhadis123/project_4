@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -30,131 +30,112 @@ const theme = createTheme({
   },
 });
 
-class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      anchorElNav: null,
-    };
-  }
+const NavBar = () => {
+  const navigate = useNavigate();
 
-  handleOpenNavMenu = (event) => {
-    this.setState({ anchorElNav: event.currentTarget });
+  const handleGamesClick = () => {
+    navigate("/Games");
   };
 
-  handleCloseNavMenu = () => {
-    this.setState({ anchorElNav: null });
-  };
+  return (
+    <ThemeProvider theme={theme}>
+      <AppBar position="static" style={{ backgroundColor: "#fbd14b" }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{
+                flexGrow: 1,
+                display: { xs: "flex", lg: "flex" },
+                fontFamily: "Comic Sans MS",
+                fontWeight: 700,
+                letterSpacing: ".1rem",
+                color: "#ff00cc",
+                textDecoration: "none",
+              }}
+            >
+              Dinos's Wonderland
+            </Typography>
 
-  render() {
-    const { anchorElNav } = this.state;
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", sm: "flex" },
+                justifyContent: "flex-end",
+              }}
+            >
+              {pages.map((page) => (
+                <Button
+                  key={page.name}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    fontFamily: "Comic Sans MS",
+                    fontSize: "1rem",
+                    textTransform: "none",
+                    borderRadius: "20px",
+                    backgroundColor: "#ff4081",
+                    padding: "5px 20px",
+                    marginRight: "10px",
+                  }}
+                  component={Link}
+                  to={page.path}
+                >
+                  {page.name}
+                </Button>
+              ))}
+            </Box>
 
-    return (
-      <ThemeProvider theme={theme}>
-        <AppBar position="static" style={{ backgroundColor: "#fbd14b" }}>
-          <Container maxWidth="xl">
-            <Toolbar disableGutters>
-              <Typography
-                variant="h6"
-                noWrap
-                component={Link}
-                to="/"
-                sx={{
-                  flexGrow: 1,
-                  display: { xs: "flex", lg: "flex" },
-                  fontFamily: "Comic Sans MS",
-                  fontWeight: 700,
-                  letterSpacing: ".1rem",
-                  color: "#ff00cc",
-                  textDecoration: "none",
-                }}
+            <Box sx={{ flexGrow: 0, display: { xs: "flex", sm: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="menu"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
               >
-                Monster's Wonderland
-              </Typography>
-
-              <Box
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
                 sx={{
-                  flexGrow: 1,
-                  display: { xs: "none", sm: "flex" },
-                  justifyContent: "flex-end",
+                  display: { xs: "block", sm: "none" },
                 }}
               >
                 {pages.map((page) => (
-                  <Button
+                  <MenuItem
                     key={page.name}
-                    onClick={this.handleCloseNavMenu}
+                    component={Link}
+                    to={page.path}
                     sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
                       fontFamily: "Comic Sans MS",
                       fontSize: "1rem",
                       textTransform: "none",
-                      borderRadius: "20px",
-                      backgroundColor: "#ff4081",
-                      padding: "5px 20px",
-                      marginRight: "10px",
                     }}
-                    component={Link}
-                    to={page.path}
                   >
                     {page.name}
-                  </Button>
+                  </MenuItem>
                 ))}
-              </Box>
-
-              <Box sx={{ flexGrow: 0, display: { xs: "flex", sm: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="menu"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={this.handleOpenNavMenu}
-                  color="inherit"
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={this.handleCloseNavMenu}
-                  sx={{
-                    display: { xs: "block", sm: "none" },
-                  }}
-                >
-                  {pages.map((page) => (
-                    <MenuItem
-                      key={page.name}
-                      onClick={this.handleCloseNavMenu}
-                      component={Link}
-                      to={page.path}
-                      sx={{
-                        fontFamily: "Comic Sans MS",
-                        fontSize: "1rem",
-                        textTransform: "none",
-                      }}
-                    >
-                      {page.name}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-            </Toolbar>
-          </Container>
-        </AppBar>
-      </ThemeProvider>
-    );
-  }
-}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </ThemeProvider>
+  );
+};
 
 export default NavBar;
