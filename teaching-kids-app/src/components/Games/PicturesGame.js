@@ -18,6 +18,7 @@ const PicturesGame = () => {
   const [randomWordNames, setRandomWordNames] = useState([]);
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [score, setScore] = useState(0);
+  const [wordCompleted, setGameCompleted] = useState(false);
   const [backgroundMusic, setBackgroundMusic] = useState(null);
 
   useEffect(() => {
@@ -62,14 +63,22 @@ const PicturesGame = () => {
 
   const handleMatchClick = (wordName) => {
     if (selectedWord && selectedWord.name === wordName) {
+      if(!matchedWords.includes(wordName)){
       setMatchedWords((prevMatchedWords) => [...prevMatchedWords, wordName]);
       setSelectedWord(null);
       setFeedbackMessage("Good job!");
       setScore((prevScore) => prevScore + 1);
     } else {
-      setFeedbackMessage("Try again!");
+      setFeedbackMessage("You've already matched this color!");
     }
-  };
+   } else {
+    setFeedbackMessage("Try again!");
+    }
+      if (matchedWords.length === words.length - 1) {
+    setGameCompleted(true);
+    setFeedbackMessage("Congratulations! You completed the game.");
+  }
+};
 
   const handleReset = () => {
     setSelectedWord(null);
@@ -77,6 +86,7 @@ const PicturesGame = () => {
     setRandomWordNames(getRandomWordNames());
     setFeedbackMessage("");
     setScore(0);
+    setGameCompleted(false);
   };
 
   useEffect(() => {

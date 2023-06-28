@@ -39,7 +39,7 @@ const NavBar = () => {
       <AppBar position="static" style={{ backgroundColor: "#fbd14b" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Typography
+           <Typography
               variant="h6"
               noWrap
               component={Link}
@@ -50,11 +50,12 @@ const NavBar = () => {
                 fontFamily: "Comic Sans MS",
                 fontWeight: 700,
                 letterSpacing: ".1rem",
-                color: "#ff00cc",
+                color: "#03C04A",
                 textDecoration: "none",
+                fontSize: '50px',
               }}
             >
-              Dinos's Wonderland
+              Dino's Wonderland
             </Typography>
 
             <Box
@@ -75,7 +76,7 @@ const NavBar = () => {
                     fontSize: "1rem",
                     textTransform: "none",
                     borderRadius: "20px",
-                    backgroundColor: "#ff4081",
+                    backgroundColor: "#f25833",
                     padding: "5px 20px",
                     marginRight: "10px",
                   }}

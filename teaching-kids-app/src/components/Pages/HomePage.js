@@ -9,7 +9,8 @@ const HomePage = () => {
         <div className="image-container">
           <img src={Image} alt="Cute Dinosaur" />
         </div>
-        <p className="introduce">Welcome to Dinos's Wonderland, a magical world filled with colorful creatures and exciting adventures! Join us on ...</p>
+        <p className="introduce">Welcome to Dino's Wonderland, a magical world filled with colorful creatures and exciting adventures!
+        <br/>  Join us ...</p>
       </div>
     </DefaultLayout>
   );

@@ -11,7 +11,7 @@ h1 {
 }
 .game-container1 {
     position: relative;
-    min-height: 100vh;
+    min-height: 60vh;
 }
 
 .background-image1 {
@@ -51,6 +51,8 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 100%;
+    
 }
 
 .image-container1 div {
@@ -80,7 +82,7 @@ p {
 }
 
 button {
-    background-color: #d6f4d8;
+    background-color: #eaefeb;
     color: rgb(23, 22, 22);
     padding: 10px 20px;
     border: none;
@@ -92,7 +94,7 @@ button {
 }
 
 button:hover {
-    background-color: #e8e5ed;
+    background-color: #daccf3;
     /* Darker shade for hover effect */
 }
 
@@ -111,4 +113,30 @@ button:disabled {
 .game-completed1 {
     margin-top: 20px;
     text-align: center;
+}
+.number-boxes-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.number-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background-color: #fc7c7c;
+    color: #ece1e1;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.number-box.num {
+    background-color: #ff9800;
+    
 }
