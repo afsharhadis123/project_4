@@ -5,6 +5,7 @@ import YellowSound from '../Audio/yellow.mp3';
 import GreenSound from '../Audio/green.mp3';
 import PurpleSound from '../Audio/purple.mp3';
 import OrangeSound from '../Audio/orange.mp3';
+import BackgroundSound from '../Audio/lazy-loop.mp3';
 import "../styles/ColorGame.css";
 
 const games = {
@@ -25,6 +26,33 @@ const ColorsGame = () => {
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [score, setScore] = useState(0);
   const [gameCompleted, setGameCompleted] = useState(false);
+  const [backgroundMusic, setBackgroundMusic] = useState(null);
+
+  useEffect(() => {
+    const audio = new Audio(BackgroundSound);
+    audio.loop = true;
+    setBackgroundMusic(audio);
+  }, []);
+
+  const playBackgroundMusic = () => {
+    if (backgroundMusic) {
+      backgroundMusic.play();
+    }
+  };
+
+  const pauseBackgroundMusic = () => {
+    if (backgroundMusic) {
+      backgroundMusic.pause();
+    }
+  };
+
+  const toggleBackgroundMusic = () => {
+    if (backgroundMusic && backgroundMusic.paused) {
+      playBackgroundMusic();
+    } else {
+      pauseBackgroundMusic();
+    }
+  };
 
   useEffect(() => {
     setRandomColorNames(getRandomColorNames());
@@ -50,20 +78,24 @@ const ColorsGame = () => {
   };
 
   const handleColorNameClick = (colorName) => {
-    if (selectedColor && selectedColor.name === colorName) {
+  if (selectedColor && selectedColor.name === colorName) {
+    if (!matchedColors.includes(colorName)) {
       setMatchedColors((prevMatchedColors) => [...prevMatchedColors, colorName]);
       setSelectedColor(null);
       setFeedbackMessage("Good job!");
       setScore((prevScore) => prevScore + 1);
     } else {
-      setFeedbackMessage("Try again!");
+      setFeedbackMessage("You've already matched this color!");
     }
+  } else {
+    setFeedbackMessage("Try again!");
+  }
 
-    if (matchedColors.length === games.colors.length - 1) {
-      setGameCompleted(true);
-      setFeedbackMessage("Congratulations! You completed the game.");
-    }
-  };
+  if (matchedColors.length === games.colors.length - 1) {
+    setGameCompleted(true);
+    setFeedbackMessage("Congratulations! You completed the game.");
+  }
+};
 
   const handleReset = () => {
     setSelectedColor(null);
@@ -77,6 +109,9 @@ const ColorsGame = () => {
   return (
     <div className="game-container2">
       <h2>Color Matching Game</h2>
+      <button onClick={toggleBackgroundMusic}>
+          {backgroundMusic && !backgroundMusic.paused ? "Music Off" : "Music On"}
+        </button>
       <div className="container2">
         {games.colors.map((color, index) => (
           <div

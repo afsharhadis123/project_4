@@ -1,7 +1,7 @@
 body {
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: rgb(247, 247, 211);
+    background-color: rgb(252, 251, 182);
 }
 
 .game-container {
@@ -16,6 +16,33 @@ body {
     top: 300px;
     width: 100%;
     z-index: -1;
+    animation: danceAnimation 2s ease-in-out infinite;
+}
+
+@keyframes danceAnimation {
+    0% {
+        transform: translate(0, 0) rotate(0);
+    }
+
+    20% {
+        transform: translate(-10px, -10px) rotate(-10deg);
+    }
+
+    40% {
+        transform: translate(10px, -10px) rotate(10deg);
+    }
+
+    60% {
+        transform: translate(-10px, 10px) rotate(-10deg);
+    }
+
+    80% {
+        transform: translate(10px, 10px) rotate(10deg);
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(0);
+    }
 }
 
 .container {

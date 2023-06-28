@@ -17,6 +17,7 @@ h2 {
     font-weight: bold;
     margin-bottom: 10px;
     text-align: center;
+    position: relative;
 }
 
 .container2 {
@@ -53,16 +54,19 @@ h2 {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    position: relative;
 }
 
 .score-container2 strong {
     margin-right: 20px;
     font-weight: bold;
+    position: relative;
 }
 
 .feedback-message2 {
     text-align: center;
     margin-top: 20px;
+    position: relative;
 }
 
 .game-completed2 {
@@ -71,11 +75,13 @@ h2 {
     align-items: center;
     margin-top: 20px;
     text-align: center;
+    position: relative;
 }
 
 button {
     background-color: #65f36a;
     color: white;
+    position: relative;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -117,13 +123,27 @@ button:disabled {
 }
 
 .background-image2 {
-    position: absolute;
+    
     margin-top: 30px;
     margin-right: 100px;
-    width: 70%;
-    height: 70%;
+    width: 80%;
+    height: 100%;
     background-image: url('https://www.color-stickers.com/2376-thickbox_default/stickers-dinosaure-vert-garaon-enfant.jpg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: bottom;
+    animation-name: slideIn;
+    animation-duration: 30s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+}
+
+@keyframes slideIn {
+    50% {
+        transform: translateX(100%);
+    }
+
+    0% {
+        transform: translateX(0);
+    }
 }
