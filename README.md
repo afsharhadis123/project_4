@@ -1,4 +1,4 @@
-# Dino's Wonderland - An Educational App for Kids'
+# Dino's Wonderland - An Educational App for Kids
 Dino's Wonderland is an educational app designed for young children, aged 2 to 4 years old, to have fun while learning words, colors, and numbers. The app provides an interactive and engaging experience for children, fostering their curiosity and promoting active learning.
 
 <img width="737" alt="color" src="https://github.com/afsharhadis123/project_4/assets/129059226/53457441-08dc-4d27-b839-720a99265861">
